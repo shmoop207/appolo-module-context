@@ -2,13 +2,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const Q = require("bluebird");
+const _ = require("lodash");
 const appolo_1 = require("appolo");
 let Manager = class Manager {
     get name() {
         return this.constructor.name;
     }
     async getContextName() {
-        Q.delay(1);
+        await Q.delay(_.random(3));
         return this.context.user;
     }
 };

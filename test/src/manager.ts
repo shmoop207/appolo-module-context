@@ -1,5 +1,6 @@
 "use strict";
 import * as Q from "bluebird";
+import * as _ from "lodash";
 import {define, singleton, inject} from 'appolo';
 import {MyContext} from "./context";
 
@@ -14,8 +15,8 @@ export class Manager {
     }
 
     public async getContextName():Promise<string>{
-        Q.delay(1);
-        return this.context.user
+       await Q.delay(_.random(3));
+        return this.context.user;
     }
 }
 

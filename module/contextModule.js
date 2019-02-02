@@ -23,12 +23,17 @@ let ContextModule = class ContextModule extends index_1.Module {
                 }
             });
             this.app.parent.use((req, res, next) => context.scope(() => {
-                let contextObj = req.app.injector.get(contextClass.define.definition.id);
+                let contextObj = req.app.injector.get(contextClass.define.definition.id, [req, res]);
                 context.set(exports.RequestContextSymbol, contextObj);
                 next();
             }));
         }
         else {
+            this.app.parent.injector.addDefinition(this.moduleOptions.id, {
+                lazyFn: function () {
+                    return context;
+                }
+            });
             this.app.parent.use((req, res, next) => context.scope(next));
         }
         context.initialize();

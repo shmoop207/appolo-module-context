@@ -35,11 +35,18 @@ export class ContextModule extends Module<IOptions> {
             });
 
             (this.app.parent as App).use((req: IRequest, res: IResponse, next: NextFn) => context.scope(() => {
-                let contextObj = req.app.injector.get(contextClass.define.definition.id);
+                let contextObj = req.app.injector.get(contextClass.define.definition.id,[req,res]);
                 context.set(RequestContextSymbol, contextObj);
                 next()
             }))
         } else {
+
+            this.app.parent.injector.addDefinition(this.moduleOptions.id, {
+                lazyFn: function () {
+                    return context
+                }
+            });
+
             (this.app.parent as App).use((req: IRequest, res: IResponse, next: NextFn) => context.scope(next))
         }
 

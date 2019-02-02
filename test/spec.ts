@@ -37,7 +37,7 @@ describe("socket module Spec", function () {
     it('should get context from manager parallel', async () => {
 
 
-        let [res,res2] = await Promise.all([request(app.handle).get('/test/context?userName=bla'), request(app.handle).get('/test/context?userName=foo')]);
+        let [res,res2] = await Promise.all([request(app.handle).get('/test/context?userName=bla'),request(app.handle).get('/test/context?userName=foo')]);
 
 
         res.body.userName.should.be.eq("bla");
