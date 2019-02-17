@@ -1,9 +1,5 @@
----
-id: context
-title: Context
-sidebar_label: Context
----
-Request context module for appolo build with [appolo-context](https://github.com/shmoop207/appolo-context) and `async_hooks`.
+
+Request context module for [`appolo`](http://https://github.com/shmoop207/appolo) built with [appolo-context](https://github.com/shmoop207/appolo-context) and `async_hooks`.
 
 > new context will be create for every request
 
