@@ -17,9 +17,18 @@ let ContextModule = class ContextModule extends index_1.Module {
         let context = index_2.namespace.create(exports.RequestNameSpaceSymbol);
         let contextClass = index_1.Util.findReflectData(decorators_1.ContextClassSymbol, this.app.parent.exported);
         if (contextClass) {
+            let $injector = this.app.parent.injector;
             this.app.parent.injector.addDefinition(this.moduleOptions.id, {
                 lazyFn: function () {
-                    return context.get(exports.RequestContextSymbol);
+                    let ctx = context.get(exports.RequestContextSymbol);
+                    if (ctx) {
+                        return ctx;
+                    }
+                    return context.scope(() => {
+                        let contextObj = $injector.get(contextClass.define.definition.id, []);
+                        context.set(exports.RequestContextSymbol, contextObj);
+                        return context.get(exports.RequestContextSymbol);
+                    });
                 }
             });
             this.app.parent.use((req, res, next) => context.scope(() => {

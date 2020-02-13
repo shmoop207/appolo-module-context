@@ -1,6 +1,6 @@
 {
   "name": "@appolo/context",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "appolo context module",
   "keywords": [
     "appolo",
@@ -11,19 +11,19 @@
     "access": "public"
   },
   "dependencies": {
-    "appolo": "^6.0.59",
+    "appolo": "^6.0.90",
     "appolo-context": "^6.0.9",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "supertest": "^3.4.2",
-    "@types/chai": "^4.1.7",
-    "@types/lodash": "^4.14.119",
-    "@types/mocha": "^5.2.5",
-    "@types/node": "^10.12.18",
+    "supertest": "^4.0.2",
+    "@types/chai": "^4.2.9",
+    "@types/lodash": "^4.14.149",
+    "@types/mocha": "^7.0.1",
+    "@types/node": "^13.7.1",
     "chai": "^4.2.0",
-    "mocha": "^5.2.0",
-    "typescript": "^3.2.2"
+    "mocha": "^7.0.1",
+    "typescript": "^3.7.5"
   },
   "repository": {
     "type": "git",

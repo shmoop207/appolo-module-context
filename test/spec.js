@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const appolo_1 = require("appolo");
 const request = require("supertest");
 const __1 = require("../");
+const manager2_1 = require("./src/manager2");
 let should = require('chai').should();
 describe("socket module Spec", function () {
     let app;
@@ -23,6 +24,11 @@ describe("socket module Spec", function () {
         let [res, res2] = await Promise.all([request(app.handle).get('/test/context?userName=bla'), request(app.handle).get('/test/context?userName=foo')]);
         res.body.userName.should.be.eq("bla");
         res2.body.userName.should.be.eq("foo");
+    });
+    it('should create manual context', async () => {
+        let manager = app.injector.get(manager2_1.Manager2);
+        let name = await manager.getContextName();
+        name.should.be.eq("Manager2");
     });
 });
 //# sourceMappingURL=spec.js.map

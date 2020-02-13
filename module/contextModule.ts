@@ -28,14 +28,28 @@ export class ContextModule extends Module<IOptions> {
 
         if (contextClass) {
 
+            let $injector = this.app.parent.injector;
+
             this.app.parent.injector.addDefinition(this.moduleOptions.id, {
                 lazyFn: function () {
-                    return context.get(RequestContextSymbol)
+                    let ctx = context.get(RequestContextSymbol);
+
+                    if (ctx) {
+                        return ctx;
+                    }
+
+                    return context.scope(() => {
+                        let contextObj = $injector.get(contextClass.define.definition.id, []);
+                        context.set(RequestContextSymbol, contextObj);
+
+                        return context.get(RequestContextSymbol);
+                    })
                 }
+
             });
 
             (this.app.parent as App).use((req: IRequest, res: IResponse, next: NextFn) => context.scope(() => {
-                let contextObj = req.app.injector.get(contextClass.define.definition.id,[req,res]);
+                let contextObj = req.app.injector.get(contextClass.define.definition.id, [req, res]);
                 context.set(RequestContextSymbol, contextObj);
                 next()
             }))

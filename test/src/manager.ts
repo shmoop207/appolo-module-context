@@ -18,5 +18,6 @@ export class Manager {
        await Q.delay(_.random(3));
         return this.context.user;
     }
+
 }
 

@@ -1,6 +1,7 @@
 import {App, createApp} from 'appolo'
 import * as request from 'supertest';
 import {ContextModule} from '../'
+import {Manager2} from "./src/manager2";
 
 let should = require('chai').should();
 
@@ -11,7 +12,7 @@ describe("socket module Spec", function () {
 
     beforeEach(async () => {
 
-        app = createApp({root: __dirname , environment: "production", port: 8182});
+        app = createApp({root: __dirname, environment: "production", port: 8182});
 
         await app.module(new ContextModule());
 
@@ -37,7 +38,7 @@ describe("socket module Spec", function () {
     it('should get context from manager parallel', async () => {
 
 
-        let [res,res2] = await Promise.all([request(app.handle).get('/test/context?userName=bla'),request(app.handle).get('/test/context?userName=foo')]);
+        let [res, res2] = await Promise.all([request(app.handle).get('/test/context?userName=bla'), request(app.handle).get('/test/context?userName=foo')]);
 
 
         res.body.userName.should.be.eq("bla");
@@ -46,6 +47,13 @@ describe("socket module Spec", function () {
 
     });
 
+    it('should create manual context', async () => {
+        let manager:Manager2 = app.injector.get<Manager2>(Manager2);
+
+        let name  = await manager.getContextName();
+
+        name.should.be.eq("Manager2")
+    })
 
 
 });
