@@ -14,7 +14,6 @@ tslib_1.__decorate([
 ], ContextController.prototype, "manager", void 0);
 tslib_1.__decorate([
     appolo_1.get("/test/context/"),
-    appolo_1.validation("userName", appolo_1.validator.string().required()),
     appolo_1.middleware(userMiddleware_1.UserMiddleware)
 ], ContextController.prototype, "test", null);
 ContextController = tslib_1.__decorate([

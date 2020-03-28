@@ -5,7 +5,7 @@ const request = require("supertest");
 const __1 = require("../");
 const manager2_1 = require("./src/manager2");
 let should = require('chai').should();
-describe("socket module Spec", function () {
+describe("context module Spec", function () {
     let app;
     beforeEach(async () => {
         app = appolo_1.createApp({ root: __dirname, environment: "production", port: 8182 });

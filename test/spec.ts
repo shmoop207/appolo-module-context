@@ -6,7 +6,7 @@ import {Manager2} from "./src/manager2";
 let should = require('chai').should();
 
 
-describe("socket module Spec", function () {
+describe("context module Spec", function () {
 
     let app: App;
 
