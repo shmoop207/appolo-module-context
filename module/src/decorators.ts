@@ -1,13 +1,13 @@
 import "reflect-metadata";
-import {Util,define} from 'appolo';
+import {Util, define} from 'appolo';
 
-export const ContextClassSymbol = Symbol("contextClass");
+export const ContextClassSymbol = "@__ContextClass__";
 
 
 export function context() {
     return function (target: any) {
 
-        define()(target)
+        define()(target);
         Util.getReflectData<true>(ContextClassSymbol, target, true);
 
     }

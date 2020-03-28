@@ -3,8 +3,8 @@ import {IOptions} from "../index";
 import {ContextClassSymbol} from "./src/decorators";
 import {namespace} from "appolo-context/index";
 
-export const RequestNameSpaceSymbol: Symbol = Symbol("requestNameSpaceSymbol");
-export const RequestContextSymbol: Symbol = Symbol("requestContext");
+export const RequestNameSpaceSymbol = "@__RequestNameSpaceSymbol__";
+export const RequestContextSymbol = "@__requestContext__";
 
 
 @module()
@@ -19,7 +19,11 @@ export class ContextModule extends Module<IOptions> {
         super(opts);
     }
 
-    beforeInitialize() {
+    public static for(opts?: IOptions): ContextModule {
+        return new ContextModule(opts);
+    }
+
+    public beforeInitialize() {
 
         let context = namespace.create(RequestNameSpaceSymbol);
 

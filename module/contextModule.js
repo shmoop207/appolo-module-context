@@ -1,17 +1,21 @@
 "use strict";
+var ContextModule_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const index_1 = require("appolo/index");
 const decorators_1 = require("./src/decorators");
 const index_2 = require("appolo-context/index");
-exports.RequestNameSpaceSymbol = Symbol("requestNameSpaceSymbol");
-exports.RequestContextSymbol = Symbol("requestContext");
-let ContextModule = class ContextModule extends index_1.Module {
+exports.RequestNameSpaceSymbol = "@__RequestNameSpaceSymbol__";
+exports.RequestContextSymbol = "@__requestContext__";
+let ContextModule = ContextModule_1 = class ContextModule extends index_1.Module {
     constructor(opts) {
         super(opts);
         this.Defaults = {
             id: "context"
         };
+    }
+    static for(opts) {
+        return new ContextModule_1(opts);
     }
     beforeInitialize() {
         let context = index_2.namespace.create(exports.RequestNameSpaceSymbol);
@@ -49,7 +53,7 @@ let ContextModule = class ContextModule extends index_1.Module {
         this.app.on(index_1.Events.BeforeReset, () => index_2.namespace.delete(exports.RequestNameSpaceSymbol));
     }
 };
-ContextModule = tslib_1.__decorate([
+ContextModule = ContextModule_1 = tslib_1.__decorate([
     index_1.module()
 ], ContextModule);
 exports.ContextModule = ContextModule;
