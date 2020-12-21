@@ -1,12 +1,12 @@
-import {injectLazy} from "appolo/index";
+import {lazy} from "@appolo/inject";
 import {context} from "../../";
 import {Manager} from "./manager";
 
 @context()
 export class MyContext {
 
-    @injectLazy() manager: Manager;
-    @injectLazy() env: any;
+    @lazy() manager: Manager;
+    @lazy() env: any;
 
     constructor(req, res) {
 

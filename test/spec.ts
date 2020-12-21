@@ -1,4 +1,4 @@
-import {App, createApp} from 'appolo'
+import {App, createApp} from '@appolo/core'
 import * as request from 'supertest';
 import {ContextModule} from '../'
 import {Manager2} from "./src/manager2";
@@ -14,7 +14,7 @@ describe("context module Spec", function () {
 
         app = createApp({root: __dirname, environment: "production", port: 8182});
 
-        await app.module(new ContextModule());
+        await app.module.use(ContextModule);
 
         await app.launch();
 
@@ -27,7 +27,7 @@ describe("context module Spec", function () {
     it('should get context from manager', async () => {
 
 
-        let res = await request(app.handle)
+        let res = await request(app.route.handle)
             .get('/test/context?userName=bla');
 
 
@@ -38,7 +38,7 @@ describe("context module Spec", function () {
     it('should get context from manager parallel', async () => {
 
 
-        let [res, res2] = await Promise.all([request(app.handle).get('/test/context?userName=bla'), request(app.handle).get('/test/context?userName=foo')]);
+        let [res, res2] = await Promise.all([request(app.route.handle).get('/test/context?userName=bla'), request(app.route.handle).get('/test/context?userName=foo')]);
 
 
         res.body.userName.should.be.eq("bla");

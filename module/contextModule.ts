@@ -1,11 +1,12 @@
-import {App, Events, IRequest, IResponse, Module, module, NextFn, Util} from "appolo/index";
+import { IRequest, IResponse, NextFn} from "@appolo/route";
+import {Events, Module, module,IModuleParams} from "@appolo/engine";
+import {App} from "@appolo/core";
 import {IOptions} from "../index";
 import {ContextClassSymbol} from "./src/decorators";
 import {namespace} from "appolo-context/index";
 
 export const RequestNameSpaceSymbol = "@__RequestNameSpaceSymbol__";
 export const RequestContextSymbol = "@__requestContext__";
-
 
 @module()
 export class ContextModule extends Module<IOptions> {
@@ -15,26 +16,23 @@ export class ContextModule extends Module<IOptions> {
         id: "context"
     };
 
-    constructor(opts?: IOptions) {
-        super(opts);
+
+
+    public static for(options?: IOptions): IModuleParams {
+        return {type:ContextModule,options};
     }
 
-    public static for(opts?: IOptions): ContextModule {
-        return new ContextModule(opts);
-    }
-
-    public beforeInitialize() {
+    public beforeModuleInitialize() {
 
         let context = namespace.create(RequestNameSpaceSymbol);
 
-        let contextClass = Util.findReflectData(ContextClassSymbol, this.app.parent.exported);
-
+        let contextClass = this.app.tree.parent.discovery.findReflectData(ContextClassSymbol);
 
         if (contextClass) {
 
-            let $injector = this.app.parent.injector;
+            let $injector = this.app.tree.parent.injector;
 
-            this.app.parent.injector.addDefinition(this.moduleOptions.id, {
+            this.app.tree.parent.injector.addDefinition(this.moduleOptions.id, {
                 lazyFn: function () {
                     let ctx = context.get(RequestContextSymbol);
 
@@ -52,26 +50,26 @@ export class ContextModule extends Module<IOptions> {
 
             });
 
-            (this.app.parent as App).use((req: IRequest, res: IResponse, next: NextFn) => context.scope(() => {
+            (this.app.tree.parent as App).route.use((req: IRequest, res: IResponse, next: NextFn) => context.scope(() => {
                 let contextObj = req.app.injector.get(contextClass.define.definition.id, [req, res]);
                 context.set(RequestContextSymbol, contextObj);
                 next()
             }))
         } else {
 
-            this.app.parent.injector.addDefinition(this.moduleOptions.id, {
+            this.app.tree.parent.injector.addDefinition(this.moduleOptions.id, {
                 lazyFn: function () {
                     return context
                 }
             });
 
-            (this.app.parent as App).use((req: IRequest, res: IResponse, next: NextFn) => context.scope(next))
+            (this.app.tree.parent as App).route.use((req: IRequest, res: IResponse, next: NextFn) => context.scope(next))
         }
 
         context.initialize();
 
 
-        this.app.on(Events.BeforeReset, () => namespace.delete(RequestNameSpaceSymbol))
+        this.app.event.beforeReset.on(() => namespace.delete(RequestNameSpaceSymbol));
 
     }
 }

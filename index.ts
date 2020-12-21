@@ -1,10 +1,9 @@
 "use strict";
 import {ContextModule, RequestContextSymbol, RequestNameSpaceSymbol} from "./module/contextModule";
-import {IModuleOptions} from "appolo";
 import {context} from "./module/src/decorators"
 import {Context,namespace} from "appolo-context";
 
-export interface IOptions extends IModuleOptions {
+export interface IOptions {
 
     id: string
 }

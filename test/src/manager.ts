@@ -1,7 +1,7 @@
 "use strict";
 import * as Q from "bluebird";
 import * as _ from "lodash";
-import {define, singleton, inject} from 'appolo';
+import {define, singleton, inject} from '@appolo/inject';
 import {MyContext} from "./context";
 
 @define()

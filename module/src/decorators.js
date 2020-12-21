@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.context = exports.ContextClassSymbol = void 0;
 require("reflect-metadata");
-const appolo_1 = require("appolo");
+const inject_1 = require("@appolo/inject");
 exports.ContextClassSymbol = "@__ContextClass__";
 function context() {
     return function (target) {
-        appolo_1.define()(target);
-        appolo_1.Util.getReflectData(exports.ContextClassSymbol, target, true);
+        inject_1.define()(target);
+        inject_1.Util.getReflectData(exports.ContextClassSymbol, target, true);
     };
 }
 exports.context = context;

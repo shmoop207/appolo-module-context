@@ -1,9 +1,9 @@
 "use strict";
-import {define, inject, Middleware} from 'appolo';
+import {define, inject, singleton} from '@appolo/inject';
 import {MyContext} from "./context";
 import * as _ from "lodash";
 import * as Q from "bluebird";
-import {singleton} from "appolo/index";
+import {Middleware} from "@appolo/route";
 
 
 @define()

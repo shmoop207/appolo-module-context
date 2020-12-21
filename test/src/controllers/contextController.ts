@@ -3,10 +3,11 @@ import {
     controller,
     Controller,
     get,
-    inject,
+
     IRequest,
     IResponse, middleware,
-} from 'appolo';
+} from '@appolo/route';
+import {inject} from "@appolo/inject"
 import {Manager} from "../manager";
 import {UserMiddleware} from "../userMiddleware";
 

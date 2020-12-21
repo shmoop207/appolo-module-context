@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserMiddleware = void 0;
 const tslib_1 = require("tslib");
-const appolo_1 = require("appolo");
+const inject_1 = require("@appolo/inject");
 const _ = require("lodash");
 const Q = require("bluebird");
-const index_1 = require("appolo/index");
-let UserMiddleware = class UserMiddleware extends appolo_1.Middleware {
+const route_1 = require("@appolo/route");
+let UserMiddleware = class UserMiddleware extends route_1.Middleware {
     async run(req, res, next) {
         await Q.delay(_.random(3));
         req.user = "user";
@@ -14,11 +15,11 @@ let UserMiddleware = class UserMiddleware extends appolo_1.Middleware {
     }
 };
 tslib_1.__decorate([
-    appolo_1.inject()
+    inject_1.inject()
 ], UserMiddleware.prototype, "context", void 0);
 UserMiddleware = tslib_1.__decorate([
-    appolo_1.define(),
-    index_1.singleton()
+    inject_1.define(),
+    inject_1.singleton()
 ], UserMiddleware);
 exports.UserMiddleware = UserMiddleware;
 //# sourceMappingURL=userMiddleware.js.map

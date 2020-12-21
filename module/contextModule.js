@@ -1,28 +1,29 @@
 "use strict";
 var ContextModule_1;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ContextModule = exports.RequestContextSymbol = exports.RequestNameSpaceSymbol = void 0;
 const tslib_1 = require("tslib");
-const index_1 = require("appolo/index");
+const engine_1 = require("@appolo/engine");
 const decorators_1 = require("./src/decorators");
-const index_2 = require("appolo-context/index");
+const index_1 = require("appolo-context/index");
 exports.RequestNameSpaceSymbol = "@__RequestNameSpaceSymbol__";
 exports.RequestContextSymbol = "@__requestContext__";
-let ContextModule = ContextModule_1 = class ContextModule extends index_1.Module {
-    constructor(opts) {
-        super(opts);
+let ContextModule = ContextModule_1 = class ContextModule extends engine_1.Module {
+    constructor() {
+        super(...arguments);
         this.Defaults = {
             id: "context"
         };
     }
-    static for(opts) {
-        return new ContextModule_1(opts);
+    static for(options) {
+        return { type: ContextModule_1, options };
     }
-    beforeInitialize() {
-        let context = index_2.namespace.create(exports.RequestNameSpaceSymbol);
-        let contextClass = index_1.Util.findReflectData(decorators_1.ContextClassSymbol, this.app.parent.exported);
+    beforeModuleInitialize() {
+        let context = index_1.namespace.create(exports.RequestNameSpaceSymbol);
+        let contextClass = this.app.tree.parent.discovery.findReflectData(decorators_1.ContextClassSymbol);
         if (contextClass) {
-            let $injector = this.app.parent.injector;
-            this.app.parent.injector.addDefinition(this.moduleOptions.id, {
+            let $injector = this.app.tree.parent.injector;
+            this.app.tree.parent.injector.addDefinition(this.moduleOptions.id, {
                 lazyFn: function () {
                     let ctx = context.get(exports.RequestContextSymbol);
                     if (ctx) {
@@ -35,26 +36,26 @@ let ContextModule = ContextModule_1 = class ContextModule extends index_1.Module
                     });
                 }
             });
-            this.app.parent.use((req, res, next) => context.scope(() => {
+            this.app.tree.parent.route.use((req, res, next) => context.scope(() => {
                 let contextObj = req.app.injector.get(contextClass.define.definition.id, [req, res]);
                 context.set(exports.RequestContextSymbol, contextObj);
                 next();
             }));
         }
         else {
-            this.app.parent.injector.addDefinition(this.moduleOptions.id, {
+            this.app.tree.parent.injector.addDefinition(this.moduleOptions.id, {
                 lazyFn: function () {
                     return context;
                 }
             });
-            this.app.parent.use((req, res, next) => context.scope(next));
+            this.app.tree.parent.route.use((req, res, next) => context.scope(next));
         }
         context.initialize();
-        this.app.on(index_1.Events.BeforeReset, () => index_2.namespace.delete(exports.RequestNameSpaceSymbol));
+        this.app.event.beforeReset.on(() => index_1.namespace.delete(exports.RequestNameSpaceSymbol));
     }
 };
 ContextModule = ContextModule_1 = tslib_1.__decorate([
-    index_1.module()
+    engine_1.module()
 ], ContextModule);
 exports.ContextModule = ContextModule;
 //# sourceMappingURL=contextModule.js.map

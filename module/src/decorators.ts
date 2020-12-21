@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import {Util, define} from 'appolo';
+import {Util, define} from '@appolo/inject';
 
 export const ContextClassSymbol = "@__ContextClass__";
 

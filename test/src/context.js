@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MyContext = void 0;
 const tslib_1 = require("tslib");
-const index_1 = require("appolo/index");
+const inject_1 = require("@appolo/inject");
 const __1 = require("../../");
 let MyContext = class MyContext {
     constructor(req, res) {
@@ -14,10 +15,10 @@ let MyContext = class MyContext {
     }
 };
 tslib_1.__decorate([
-    index_1.injectLazy()
+    inject_1.lazy()
 ], MyContext.prototype, "manager", void 0);
 tslib_1.__decorate([
-    index_1.injectLazy()
+    inject_1.lazy()
 ], MyContext.prototype, "env", void 0);
 MyContext = tslib_1.__decorate([
     __1.context()
