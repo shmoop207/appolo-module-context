@@ -9,7 +9,7 @@ export interface IOptions {
     id: string
 }
 
-export {ContextModule, context, Context}
+export {ContextModule, context, Context,contextScope}
 
 export function getContext<T>():T {
     return namespace.get(RequestNameSpaceSymbol).get<T>(RequestContextSymbol)
