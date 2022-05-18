@@ -15,14 +15,14 @@ let Manager2 = class Manager2 {
     }
 };
 tslib_1.__decorate([
-    inject_1.inject()
+    (0, inject_1.inject)()
 ], Manager2.prototype, "context", void 0);
 tslib_1.__decorate([
-    inject_1.inject()
+    (0, inject_1.inject)()
 ], Manager2.prototype, "manager", void 0);
 Manager2 = tslib_1.__decorate([
-    inject_1.define(),
-    inject_1.singleton()
+    (0, inject_1.define)(),
+    (0, inject_1.singleton)()
 ], Manager2);
 exports.Manager2 = Manager2;
 //# sourceMappingURL=manager2.js.map

@@ -2,6 +2,7 @@ import {App, createApp} from '@appolo/core'
 import * as request from 'supertest';
 import {ContextModule} from '../'
 import {Manager2} from "./src/manager2";
+import {Handler} from "./src/handlers/handler";
 
 let should = require('chai').should();
 
@@ -48,11 +49,21 @@ describe("context module Spec", function () {
     });
 
     it('should create manual context', async () => {
-        let manager:Manager2 = app.injector.get<Manager2>(Manager2);
+        let manager: Manager2 = app.injector.get<Manager2>(Manager2);
 
-        let name  = await manager.getContextName();
+        let name = await manager.getContextName();
 
         name.should.be.eq("Manager2")
+    })
+
+    it('should call from handler', async () => {
+        let handler = app.injector.get<Handler>(Handler);
+
+        let name1 = await handler.handle("test1");
+        let name2 = await handler.handle("test2");
+
+        name1.should.be.eq("test1bbb")
+        name2.should.be.eq("test2bbb")
     })
 
 

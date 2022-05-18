@@ -1,9 +1,10 @@
-import { IRequest, IResponse, NextFn} from "@appolo/route";
-import {Events, Module, module,IModuleParams} from "@appolo/engine";
+import {IRequest, IResponse, NextFn} from "@appolo/route";
+import {Events, Module, module, IModuleParams} from "@appolo/engine";
 import {App} from "@appolo/core";
 import {IOptions} from "../index";
 import {ContextClassSymbol} from "./src/decorators";
 import {namespace} from "appolo-context/index";
+import {ContextScopePipeline} from "./src/contextScopePipeline";
 
 export const RequestNameSpaceSymbol = "@__RequestNameSpaceSymbol__";
 export const RequestContextSymbol = "@__requestContext__";
@@ -16,10 +17,12 @@ export class ContextModule extends Module<IOptions> {
         id: "context"
     };
 
-
+    public get exports() {
+        return [ContextScopePipeline]
+    }
 
     public static for(options?: IOptions): IModuleParams {
-        return {type:ContextModule,options};
+        return {type: ContextModule, options};
     }
 
     public beforeModuleInitialize() {

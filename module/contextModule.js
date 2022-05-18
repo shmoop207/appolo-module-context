@@ -6,6 +6,7 @@ const tslib_1 = require("tslib");
 const engine_1 = require("@appolo/engine");
 const decorators_1 = require("./src/decorators");
 const index_1 = require("appolo-context/index");
+const contextScopePipeline_1 = require("./src/contextScopePipeline");
 exports.RequestNameSpaceSymbol = "@__RequestNameSpaceSymbol__";
 exports.RequestContextSymbol = "@__requestContext__";
 let ContextModule = ContextModule_1 = class ContextModule extends engine_1.Module {
@@ -14,6 +15,9 @@ let ContextModule = ContextModule_1 = class ContextModule extends engine_1.Modul
         this.Defaults = {
             id: "context"
         };
+    }
+    get exports() {
+        return [contextScopePipeline_1.ContextScopePipeline];
     }
     static for(options) {
         return { type: ContextModule_1, options };
@@ -55,7 +59,7 @@ let ContextModule = ContextModule_1 = class ContextModule extends engine_1.Modul
     }
 };
 ContextModule = ContextModule_1 = tslib_1.__decorate([
-    engine_1.module()
+    (0, engine_1.module)()
 ], ContextModule);
 exports.ContextModule = ContextModule;
 //# sourceMappingURL=contextModule.js.map

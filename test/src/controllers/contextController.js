@@ -12,14 +12,14 @@ let ContextController = class ContextController extends route_1.Controller {
     }
 };
 tslib_1.__decorate([
-    inject_1.inject()
+    (0, inject_1.inject)()
 ], ContextController.prototype, "manager", void 0);
 tslib_1.__decorate([
-    route_1.get("/test/context/"),
-    route_1.middleware(userMiddleware_1.UserMiddleware)
+    (0, route_1.get)("/test/context/"),
+    (0, route_1.middleware)(userMiddleware_1.UserMiddleware)
 ], ContextController.prototype, "test", null);
 ContextController = tslib_1.__decorate([
-    route_1.controller()
+    (0, route_1.controller)()
 ], ContextController);
 exports.ContextController = ContextController;
 //# sourceMappingURL=contextController.js.map

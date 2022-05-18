@@ -6,7 +6,7 @@ const inject_1 = require("@appolo/inject");
 exports.ContextClassSymbol = "@__ContextClass__";
 function context() {
     return function (target) {
-        inject_1.define()(target);
+        (0, inject_1.define)()(target);
         inject_1.Util.getReflectData(exports.ContextClassSymbol, target, true);
     };
 }
