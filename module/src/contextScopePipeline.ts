@@ -6,8 +6,7 @@ import {ContextClassSymbol} from "./decorators";
 import {Context} from "appolo-context/lib/context";
 
 interface IParams {
-    msgFn?: (...args: any[]) => string,
-    paramsFn?: (...args: any[]) => { [index: string]: any }
+
 }
 
 @define()
