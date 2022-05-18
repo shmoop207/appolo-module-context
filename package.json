@@ -1,6 +1,6 @@
 {
   "name": "@appolo/context",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "description": "appolo context module",
   "keywords": [
     "appolo",
@@ -11,7 +11,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@appolo/core": "^8.0.7",
+    "@appolo/core": "^8.0.9",
     "appolo-context": "^6.0.9"
   },
   "devDependencies": {
